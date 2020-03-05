@@ -12,9 +12,9 @@
 
 **Testando:**
 - Abra o Postman
-- Tente realizar GET em localhost:3000/
+- Tente realizar GET em `localhost:3000/`
     - A seguinte mensagem de erro aparecerá: `{"auth":false,"message":"Failed to authenticate token."}`
-- Agora, realize login com POST em localhost:3000/login
+- Agora, realize login com POST em `localhost:3000/login`
     - No body, coloque o JSON:
     ```
     {
