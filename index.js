@@ -15,12 +15,18 @@ app.use(cookieParser());
 
 // Request
 app.get('/', verifyJWT, (req, res, next) => {
-    processado = [];
-    processado.push( parseInt(req.query.um) * 2 );
-    processado.push( parseInt(req.query.dois) * 2 );
-    processado.push( parseInt(req.query.tres) * 2 );
-    processado.push( parseInt(req.query.quatro) * 2 );
-    res.status(200).send("Processado: " + processado);
+    resposta = ""
+    if(req.query.um && req.query.dois && req.query.tres && req.query.quatro) {
+        processado = [];
+        processado.push( parseInt(req.query.um) * 2 );
+        processado.push( parseInt(req.query.dois) * 2 );
+        processado.push( parseInt(req.query.tres) * 2 );
+        processado.push( parseInt(req.query.quatro) * 2 );
+        resposta = "Processado: " + processado;
+    } else {
+        resposta = "Adicione valores nos parametros um, dois, tres e quatro."
+    }
+    res.status(200).send(resposta);
 })
 
 // Login
