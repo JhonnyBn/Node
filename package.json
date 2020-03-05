@@ -1,0 +1,30 @@
+{
+  "name": "node-jwt-test",
+  "version": "1.0.0",
+  "description": "testing jwt with node",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhonnyBn/Node.git"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node",
+    "jwt"
+  ],
+  "author": "JhonnyBn",
+  "bugs": {
+    "url": "https://github.com/JhonnyBn/Node/issues"
+  },
+  "homepage": "https://github.com/JhonnyBn/Node#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1"
+  }
+}
