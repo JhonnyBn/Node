@@ -16,16 +16,12 @@
     - A seguinte mensagem de erro aparecerá: `{"auth":false,"message":"Failed to authenticate token."}`
 - Agora, realize login com POST em localhost:3000/login
     - No body, coloque o JSON:
-    ```{
+    ```
+    {
         "user": "admin",
         "pwd": "admin"
     }
     ```
     - Você receberá como resposta algo como: `{"auth":true,"token":"XXX"}`
     - Copie esse token para uma variável no header `access-token`
-- Tente realizar GET novamente
-    - Para processar os dados, coloque números nos parâmetros
-    um
-    dois
-    tres
-    quatro
+- Tente realizar GET novamente, com parâmetros de teste: `localhost:3000/?um=1&dois=2&tres=3&quatro=4`
