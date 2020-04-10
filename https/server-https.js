@@ -1,20 +1,36 @@
 /**
+ * Arquivo não utilizado atualmente. 
+ * Guardado para mostrar utilização de HTTPS na conexão
+ *
+ *
  * Exemplo de Servidor com Autenticação em Node através de JSON Web Tokens.
  *
- * @file   This file defines the server.
+ * @file   This file defines the server using HTTPS connection.
  * @author JhonnyBn
  */
 
-const http = require('http'); // servidor
+const https = require('https'); // servidor
 const express = require('express'); // framework express pra criar o servidor
 const cookieParser = require('cookie-parser'); // cookie parser
 const morgan = require('morgan'); // imprime logs dos requests no servidor
 const helmet = require('helmet'); // camadas de seguranca adicional
 require("dotenv-safe").config(); // importa o SECRET como variavel de ambiente
 const jwt = require('jsonwebtoken'); // usa o SECRET para criar credenciais de login
+const fs = require('fs'); // ler arquivos para criar o servidor com SSL
 
+// Configuracoes do servidor
+const host = /*"localhost"*/ /*"127.0.0.1"*/ "192.168.0.15" // Seu ip aqui
+const port = 3000
 
-const port = process.env.PORT || 3000
+// Configuracoes SSL
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./cert.pem');
+const sslOptions = {
+	key,
+	cert,
+	requestCert: false,
+    rejectUnauthorized: false
+}
 
 const app = express();
 
@@ -30,7 +46,7 @@ app.post('/login', (req, res, next) => {
 	console.log(req.body)
     if(req.body.user === 'admin' && req.body.pwd === 'admin'){
         const payload = { id: 1, user: "admin" }; // poderia ser qualquer coisa. nao seguro
-        const token = jwt.sign(payload, process.env.SECRET, {
+        var token = jwt.sign(payload, process.env.SECRET, {
             expiresIn: 300 // token expira em 5min
         });
         res.status(200).send({ auth: true, token, message: "Logged in succesfully." });
@@ -48,7 +64,7 @@ app.post('/login', (req, res, next) => {
  * @return {undefined}
  */
 function verifyJWT(req, res, next){
-    const token = req.headers['access-token'];
+    var token = req.headers['access-token'];
     if (!token) return res.status(401).send({ auth: false, token, message: 'No token provided.' });
     
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
@@ -72,6 +88,6 @@ app.get('/teste', verifyJWT, (req, res, next) => {
     res.status(200).send( JSON.stringify(resposta) );
 })
 
-const server = http.createServer(app);
-server.listen(port);
-console.log("Listening on port " + port + ".");
+var server = https.createServer(sslOptions, app);
+server.listen(port, host);
+console.log("Listening on " + port + ".");

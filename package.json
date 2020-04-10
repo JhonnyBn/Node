@@ -2,13 +2,13 @@
   "name": "node-jwt-test",
   "version": "1.0.0",
   "description": "testing jwt with node",
-  "main": "index.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JhonnyBn/Node.git"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "keywords": [
     "node",
